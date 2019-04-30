@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddJobActivity"
+    android:id="@+id/add_job_activity">
+
+    <TextView
+        android:id="@+id/add_job_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="148dp"
+        android:text="@string/add_job"
+        android:textColor="@color/colorPrimaryDark"
+
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <DatePicker
+        android:id="@+id/date_picker"
+        android:layout_width="259dp"
+        android:layout_height="108dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="8dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_date_text" />
+
+    <TimePicker
+        android:id="@+id/time_picker_clock_in"
+        android:layout_width="255dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="76dp"
+        android:timePickerMode="spinner"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_clock_in_time_text" />
+
+    <TextView
+        android:id="@+id/new_date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/new_date"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_job_title" />
+
+    <TextView
+        android:id="@+id/new_clock_in_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/new_clock_in_time"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date_picker" />
+
+    <TextView
+        android:id="@+id/new_clock_out_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/new_clock_out_time"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker_clock_in" />
+
+    <TimePicker
+        android:id="@+id/time_picker_clock_out"
+        android:layout_width="255dp"
+        android:layout_height="132dp"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="12dp"
+        android:timePickerMode="spinner"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_clock_out_time_text" />
+
+    <Button
+        android:id="@+id/finish_add_job"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:text="@string/finish_string"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/time_picker_clock_out" />
+
+</android.support.constraint.ConstraintLayout>

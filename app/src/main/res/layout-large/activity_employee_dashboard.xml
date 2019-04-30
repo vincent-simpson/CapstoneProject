@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activities.EmployeeDashboardActivity">
+
+    <EditText
+        android:id="@+id/dashboard_welcome"
+        android:layout_width="148dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:ems="10"
+        android:inputType="none"
+        android:text="@string/welcome"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/todaysDate"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/clockInButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="164dp"
+        android:background="@drawable/button_design"
+        android:text="@string/clock_in_str"
+        android:textColor="#FFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysDate" />
+
+    <Button
+        android:id="@+id/clockOutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:background="@drawable/button_design"
+        android:text="@string/clock_out_str"
+        android:textColor="#FFF"
+        app:layout_constraintStart_toEndOf="@+id/clockInButton"
+        app:layout_constraintTop_toTopOf="@+id/clockInButton" />
+
+    <EditText
+        android:id="@+id/todaysDate"
+        android:layout_width="123dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="date"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/dashboard_welcome"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Chronometer
+        android:id="@+id/chronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="8dp"
+        android:textColor="#FFF"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/clockOutButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysDate"
+        app:layout_constraintVertical_bias="0.327" />
+
+    <TextClock
+        android:id="@+id/currentTime"
+        android:layout_width="104dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="time"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/todaysDate"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/employeeListView"
+        android:layout_width="match_parent"
+        android:layout_height="415dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/calendar_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clockOutButton" />
+
+    <Button
+        android:id="@+id/calendarButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="104dp"
+        android:background="@drawable/button_design"
+        android:text="@string/calendar_string"
+        android:textColor="#FFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/todaysDate" />
+
+    <Button
+        android:id="@+id/add_job_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/button_design"
+        android:text="@string/add_job"
+        android:textColor="#FFF"
+        app:layout_constraintBottom_toTopOf="@+id/clockOutButton"
+        app:layout_constraintStart_toEndOf="@+id/calendarButton" />
+
+
+</android.support.constraint.ConstraintLayout>

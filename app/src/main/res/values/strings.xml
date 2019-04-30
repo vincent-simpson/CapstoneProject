@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Time Sheet Tracker</string>
+    <string name="welcome_string">Welcome!</string>
+    <string name="login_title">Employee Login</string>
+    <string name="enter_username">username</string>
+    <string name="enter_password">password</string>
+    <string name="enter_password_confirm">confirm password</string>
+    <string name="enter_first_name">first name</string>
+    <string name="enter_last_name">last name</string>
+    <string name="login">Login</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_account">Create Account</string>
+    <string name="title_activity_create_account">CreateAccountActivity</string>
+    <string name="submit">Submit</string>
+    <string name="header_activity_create_account">Create Account</string>
+    <string name="username_creation_instructions">Your username must be between 8 and 16 characters.
+        Your password must be between 8 and 16 characters in length and contain at least one
+        uppercase letter and one special character</string>
+    <string name="welcome">Welcome. To get started, click the Calendar button to choose which day
+        you\'d like to work with.</string>
+    <string name="clock_in_str">Clock In</string>
+    <string name="clock_out_str">Clock Out</string>
+    <string name="finish_string">Finish</string>
+    <string name="calendar_string">Calendar</string>
+    <string name="calendar_activity_instructions">First, pick a date that you want to clock in/out
+        for</string>
+    <string name="add_job">Add Job</string>
+    <string name="select_date_button_text">Select Date</string>
+    <string name="new_clock_in_time">Clock In Time</string>
+    <string name="new_date">Date</string>
+    <string name="new_clock_out_time">Clock Out Time</string>
+    <string name="notes_hint">Enter your notes</string>
+</resources>
