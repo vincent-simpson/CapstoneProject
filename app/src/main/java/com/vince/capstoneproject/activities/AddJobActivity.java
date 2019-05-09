@@ -135,10 +135,12 @@ public class AddJobActivity extends AppCompatActivity
 
         finishAddJob.setOnClickListener(v -> {
             isInvalidDate = false;
-            if (callingClass.equalsIgnoreCase("RecyclerViewAdapter")) {
-                finish();
-            } else {
-                if ((Duration.between(newClockInTime, newClockOutTime)).isNegative()) {
+//            if (callingClass.equalsIgnoreCase("RecyclerViewAdapter")) {
+//                finish();
+//            } else {
+                if (newClockInTime != null && newClockOutTime != null
+                        &&(Duration.between(newClockInTime, newClockOutTime)).isNegative())
+                {
                     alertDialog = new AlertDialog.Builder(this).create();
                     alertDialog.setTitle("Invalid Date Selection");
                     alertDialog.setMessage("Clock in time must come before clock out time");
@@ -159,7 +161,7 @@ public class AddJobActivity extends AppCompatActivity
                     finish();
                 }
 
-            }
+           // }
         });
 
     }

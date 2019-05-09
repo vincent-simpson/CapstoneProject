@@ -52,7 +52,7 @@ public class LoginTask extends AsyncTask<Context, Void, Boolean> {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
         alertDialog = new AlertDialog.Builder(weakContext.get()).create();
-        alertDialog.setTitle("login Status");
+        alertDialog.setTitle("Login Status");
     }
 
     /**

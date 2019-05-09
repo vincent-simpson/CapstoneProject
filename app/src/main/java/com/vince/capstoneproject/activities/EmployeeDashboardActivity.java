@@ -45,10 +45,9 @@ import java.util.Locale;
  * for a few things. First of all, it allows the user to clock in and out as long as the date that
  * they selected in the Calendar Activity is today's date. If it isn't, they have to navigate to
  * the Add Job activity where they can specify a date and clock in/out time for the job to add.
- *
+ * <p>
  * Pieces of this code have been referenced from the official Android SDK documentation at
  * https://developer.android.com/docs
- *
  */
 public class EmployeeDashboardActivity extends AppCompatActivity
         implements AsyncResponse,
@@ -275,14 +274,13 @@ public class EmployeeDashboardActivity extends AppCompatActivity
     /**
      * Adds view objects with the the layout specified in the resources layout folder as:
      *
-     *
      * @param employeeTimes the two dimensional ArrayList of Dates to add to each view object.
      *                      Each ArrayList contains a LocalDateTime where index 0 is the clock
      *                      out time and index 1 is the clock in time
      */
     private void populateListViewDates(ArrayList<ArrayList<LocalDateTime>> employeeTimes) {
         if (employeeTimes != null) {
-            if(mAdapter == null) {
+            if (mAdapter == null) {
                 mAdapter = new RecyclerViewAdapter(employeeTimes, EmployeeDashboardActivity.this);
                 recyclerView.setAdapter(mAdapter);
             }
@@ -326,7 +324,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity
      * @return true if the {@param selectedDate} is today's date. False if it isn't
      */
     private boolean isSelectedDateToday(LocalDateTime selectedDate) {
-        if(selectedDate == null)
+        if (selectedDate == null)
             return false;
         LocalDate selectedDateLD = LocalDate.of(selectedDate.getYear(), selectedDate.getMonthValue(),
                 selectedDate.getDayOfMonth());
@@ -337,7 +335,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity
     /**
      * Called from AccessDatabaseTask in onPostExecute in order to pass the result set back to this
      * class
-     *
+     * <p>
      * Implemented from the {@link AsyncResponse} interface.
      *
      * @param output the result from the AccessDatabaseTask
@@ -347,7 +345,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity
         this.temps = output;
 
         populateListViewDates(output);
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             mAdapter.setData(output);
             mAdapter.notifyDataSetChanged();
         }
@@ -494,24 +492,13 @@ public class EmployeeDashboardActivity extends AppCompatActivity
                             AccessDatabaseTask.Operation.DELETE, selectedDate);
                     deleteTime.execute(EmployeeDashboardActivity.this);
 
-                    Snackbar snackbar = Snackbar
-                            .make(constraintLayout, "Item was removed from the list.",
-                                    Snackbar.LENGTH_LONG);
-                    snackbar.setAction("UNDO", view -> {
-
-                        mAdapter.restoreItem();
-                        recyclerView.scrollToPosition(position);
-                    });
-
-                    snackbar.setActionTextColor(Color.YELLOW);
-                    snackbar.show();
 
                 }));
                 alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
                         ((dialog, which) -> {
-                    alertDialog.cancel();
-                    mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
-                }));
+                            alertDialog.cancel();
+                            mAdapter.notifyItemChanged(viewHolder.getAdapterPosition());
+                        }));
                 alertDialog.show();
 
             }

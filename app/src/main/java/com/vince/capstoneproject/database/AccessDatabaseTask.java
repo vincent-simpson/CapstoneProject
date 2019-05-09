@@ -398,7 +398,7 @@ public class AccessDatabaseTask extends AsyncTask<Context, Void, ArrayList<Array
             result.append(cursor.getString(cursor.getColumnIndexOrThrow("notes")));
         }
         cursor.close();
-
+        System.out.println("GET NOTES TO STRING: " + result.toString());
         return result.toString();
     }
 
