@@ -257,7 +257,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity
     private void setDate(TextView view, LocalDateTime todaysDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM.dd.yyyy", Locale.US);
         StringBuilder sb = new StringBuilder();
-        sb.append("Today's date: ");
+        sb.append("Selected date: ");
         sb.append(System.getProperty("line.separator"));
 
         if (todaysDate == null) {
