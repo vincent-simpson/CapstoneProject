@@ -35,7 +35,8 @@ public class AccessDatabaseTask extends AsyncTask<Context, Void, ArrayList<Array
 
     //Defining all of the possible operations we could be performing
     public enum Operation {
-        SELECT, INSERT, UPDATE, DELETE, INSERT_TIMES, SELECT_TIMES, SELECT_NOTES, SELECT_USERNAMES
+        SELECT, INSERT, UPDATE, DELETE, INSERT_TIMES, SELECT_TIMES, SELECT_NOTES, SELECT_USERNAMES,
+        ADMIN
     }
 
     public AsyncResponse response = null;
@@ -135,6 +136,9 @@ public class AccessDatabaseTask extends AsyncTask<Context, Void, ArrayList<Array
             case DELETE:
                 deleteDateEntry(employee.getClockInTime());
                 break;
+            case ADMIN:
+                runInsertAdmin();
+                break;
         }
         return employeeResults;
     }
@@ -229,6 +233,22 @@ public class AccessDatabaseTask extends AsyncTask<Context, Void, ArrayList<Array
             throw new NullPointerException("Cursor is null");
         }
         return userID + "";
+    }
+
+    private void runInsertAdmin() {
+        ContentValues values = new ContentValues();
+        String firstName = "admin";
+        String lastName = "admin";
+        String username = "admin";
+        String password = "admin";
+
+        values.put(EmployeeData.FIRST_NAME, firstName);
+        values.put(EmployeeData.LAST_NAME, lastName);
+        values.put(EmployeeData.USERNAME, username);
+        values.put(EmployeeData.PASSWORD, password);
+
+        db_write.insertOrThrow(EmployeeData.TABLE_NAME,
+                null, values);
     }
 
     /**

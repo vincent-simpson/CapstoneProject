@@ -73,6 +73,7 @@ public class EmployeeDashboardActivity extends AppCompatActivity
     private RecyclerViewAdapter mAdapter;
     private ConstraintLayout constraintLayout;
     private ArrayList<ArrayList<LocalDateTime>> list;
+    private boolean grantRootRights=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,26 +85,32 @@ public class EmployeeDashboardActivity extends AppCompatActivity
         constraintLayout = findViewById(R.id.constraintLayout);
         enableSwipeToDeleteAndUndo();
 
-        if (Employee.username.equalsIgnoreCase("admin")) {
-            /*
-            populate tabLayout with all employee names, dates, times
-             */
-            AccessDatabaseTask getUsernames =
-                    new AccessDatabaseTask(AccessDatabaseTask.Operation.SELECT_USERNAMES);
-            getUsernames.notesCallback = this;
-            getUsernames.execute(getApplicationContext());
-        }
-
-        tabLayout = findViewById(R.id.tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText(Employee.username));
-        tabLayout.addOnTabSelectedListener(this);
-
-        todayDate = LocalDateTime.now();
-
         Bundle extras = getIntent().getExtras();
         if (extras != null && extras.containsKey("Employee")) {
             employee = (Employee) extras.get("Employee");
         }
+
+        tabLayout = findViewById(R.id.tabLayout);
+        tabLayout.addOnTabSelectedListener(this);
+
+        if(!Employee.username.equalsIgnoreCase("admin")) {
+            tabLayout.addTab(tabLayout.newTab().setText(Employee.username));
+        } else {
+            if (Employee.username.equalsIgnoreCase("admin")) {
+                grantRootRights = true;
+            /*
+            populate tabLayout with all employee names, dates, times
+             */
+                AccessDatabaseTask getUsernames =
+                        new AccessDatabaseTask(AccessDatabaseTask.Operation.SELECT_USERNAMES);
+                getUsernames.notesCallback = this;
+                getUsernames.execute(getApplicationContext());
+            }
+        }
+
+        todayDate = LocalDateTime.now();
+
+
 
         temps = new ArrayList<>();
 
@@ -200,6 +207,16 @@ public class EmployeeDashboardActivity extends AppCompatActivity
         addJob.setOnClickListener(v -> {
             Intent i = new Intent(EmployeeDashboardActivity.this,
                     AddJobActivity.class);
+
+            LocalDateTime dateToPass = selectedDate;
+
+            if(dateToPass == null) {
+               dateToPass = LocalDateTime.now();
+            }
+
+            i.putExtra("selectedDate", dateToPass);
+            i.putExtra("callingClass", "Dashboard");
+
             startActivityForResult(i, ADD_JOB_REQUEST);
         });
     }
@@ -372,6 +389,17 @@ public class EmployeeDashboardActivity extends AppCompatActivity
 
         todayDate = LocalDateTime.of(LocalDate.of(year, month + 1, dayOfMonth),
                 LocalTime.now());
+
+        if(grantRootRights) {
+            TabLayout.Tab t = tabLayout.getTabAt(tabLayout.getSelectedTabPosition());
+
+            if(t != null) {
+                Employee.username = t.getText().toString();
+            }
+
+
+        }
+
 
         AccessDatabaseTask getDatesForListView = new AccessDatabaseTask(employee,
                 AccessDatabaseTask.Operation.SELECT_TIMES, selectedDate);

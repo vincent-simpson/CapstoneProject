@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Locale;
@@ -49,6 +50,8 @@ public class AddJobActivity extends AppCompatActivity
     private String callingClass = "";
     private AlertDialog alertDialog;
     boolean isInvalidDate = false;
+    private DateTimeFormatter timeFormatter;
+    private EditText notesET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class AddJobActivity extends AppCompatActivity
         setNewDate = findViewById(R.id.selectNewDateButton);
         setNewClockOutTime = findViewById(R.id.selectNewClockOutTimeButton);
 
-        EditText notesET = findViewById(R.id.notesEditText);
+        notesET = findViewById(R.id.notesEditText);
         setNewClockInTime = findViewById(R.id.selectNewClockInTimeButton);
         Button finishAddJob = findViewById(R.id.finish_add_job);
 
@@ -67,8 +70,18 @@ public class AddJobActivity extends AppCompatActivity
                 .ofPattern("EEE, MMM dd");
 
         //timeFormatter output example: 12:11 PM
-        DateTimeFormatter timeFormatter = DateTimeFormatter
+        timeFormatter = DateTimeFormatter
                 .ofPattern("h:mm");
+
+        now = LocalDateTime.now();
+        year = now.getYear();
+        month = now.getMonthValue();
+        day = now.getDayOfMonth();
+        hour = now.getHour();
+        minute = now.getMinute();
+        am = (hour < 12);
+
+        nowPlusOneHour = now.plusHours(1);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -77,38 +90,47 @@ public class AddJobActivity extends AppCompatActivity
             if (callingClass != null) {
                 switch (callingClass) {
                     case "RecyclerViewAdapter": //if we're coming from RecyclerViewAdapter
-                        this.notes = (String) extras.get("notes");
-                        this.employee = (Employee) extras.get("employee");
-                        this.setNewDate.setText(dateFormatter.format(employee.getClockInTime()));
-                        this.setNewClockInTime.setText(timeFormatter.format(employee.getClockInTime()));
-                        this.setNewClockOutTime.setText(timeFormatter.format(employee.getClockOutTime()));
-                        notesET.setText(this.notes);
+                        notes = (String) extras.get("notes");
+                        employee = (Employee) extras.get("employee");
+                        setNewDate.setText(dateFormatter.format(employee.getClockInTime()));
+                        setNewClockInTime.setText(timeFormatter.format(employee.getClockInTime()));
+                        setNewClockOutTime.setText(timeFormatter.format(employee.getClockOutTime()));
+                        notesET.setText(notes);
+
+                        setNewDate.setEnabled(false);
+                        setNewClockInTime.setEnabled(false);
+                        setNewClockOutTime.setEnabled(false);
+                        notesET.setEnabled(false);
+
+                        break;
+
+                    case "Dashboard" :
+                        LocalDateTime l = (LocalDateTime) extras.get("selectedDate");
+                        this.setNewDate.setText(dateFormatter.format(l));
+
+                        newClockInTime = LocalDateTime.of(l.toLocalDate(), LocalTime.now());
+                        newClockOutTime = newClockInTime.plusHours(1);
+
                         break;
                 }
             }
         } else {
-            now = LocalDateTime.now();
-            year = now.getYear();
-            month = now.getMonthValue();
-            day = now.getDayOfMonth();
-            hour = now.getHour();
-            minute = now.getMinute();
-            am = (hour < 12);
 
             String newText = dateFormatter.format(now);
             setNewDate.setText(newText);
 
-            nowPlusOneHour = now.plusHours(1);
-            String newClockOutText = timeFormatter.format(nowPlusOneHour) +
-                    ((nowPlusOneHour.getHour() < 12) ? " AM" : " PM");
-            setNewClockOutTime.setText(newClockOutText);
-
-            String newClockInText = timeFormatter.format(now) + ((now.getHour() < 12) ? " AM" : " PM");
-            setNewClockInTime.setText(newClockInText);
-
             newClockInTime = now;
             newClockOutTime = nowPlusOneHour;
+
         }
+
+        String newClockOutText = timeFormatter.format(nowPlusOneHour) +
+                ((nowPlusOneHour.getHour() < 12) ? " AM" : " PM");
+        setNewClockOutTime.setText(newClockOutText);
+
+        String newClockInText = timeFormatter.format(now) + ((now.getHour() < 12) ? " AM" : " PM");
+        setNewClockInTime.setText(newClockInText);
+
 
         setNewDate.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, this,
@@ -135,12 +157,8 @@ public class AddJobActivity extends AppCompatActivity
 
         finishAddJob.setOnClickListener(v -> {
             isInvalidDate = false;
-//            if (callingClass.equalsIgnoreCase("RecyclerViewAdapter")) {
-//                finish();
-//            } else {
                 if (newClockInTime != null && newClockOutTime != null
-                        &&(Duration.between(newClockInTime, newClockOutTime)).isNegative())
-                {
+                        && (Duration.between(newClockInTime, newClockOutTime)).isNegative()) {
                     alertDialog = new AlertDialog.Builder(this).create();
                     alertDialog.setTitle("Invalid Date Selection");
                     alertDialog.setMessage("Clock in time must come before clock out time");
@@ -161,8 +179,8 @@ public class AddJobActivity extends AppCompatActivity
                     finish();
                 }
 
-           // }
-        });
+                // }
+            });
 
     }
 
@@ -234,7 +252,7 @@ public class AddJobActivity extends AppCompatActivity
         } else {
             newClockOutTime = LocalDate.now().atTime(hourOfDay, minute);
 
-            String newClockOutTimeStr = hour + ":" + minute + " " + s;
+            String newClockOutTimeStr = timeFormatter.format(newClockOutTime) + " " + s;
             setNewClockOutTime.setText(newClockOutTimeStr);
         }
 

@@ -10,6 +10,7 @@ import android.widget.EditText;
 
 import com.vince.capstoneproject.Employee;
 import com.vince.capstoneproject.R;
+import com.vince.capstoneproject.database.AccessDatabaseTask;
 import com.vince.capstoneproject.database.LoginTask;
 
 /**
@@ -23,6 +24,7 @@ import com.vince.capstoneproject.database.LoginTask;
 public class MainActivity extends AppCompatActivity implements View.OnFocusChangeListener {
     private EditText usernameET, passwordET;
     private LoginTask loginTask;
+    private Button adminButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
 
         usernameET = findViewById(R.id.usernameET);
         passwordET = findViewById(R.id.passwordET);
+
+        adminButton = findViewById(R.id.adminButton);
 
         usernameET.setOnFocusChangeListener(this);
         passwordET.setOnFocusChangeListener(this);
@@ -45,6 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
             Intent i = new Intent(this, CreateAccountActivity.class);
             startActivity(i);
         });
+
+        adminButton.setOnClickListener( v -> {
+
+            AccessDatabaseTask insertAdmin = new AccessDatabaseTask(
+                    AccessDatabaseTask.Operation.ADMIN);
+
+            insertAdmin.execute(getApplicationContext());
+        });
     }
 
     /**
@@ -54,8 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
      * Starts a {@link LoginTask} to try to log the user in.
      */
     public void login() {
-        String usernameInput = usernameET.getText().toString();
-        String passwordInput = passwordET.getText().toString();
+        String usernameInput = usernameET.getText().toString().trim();
+        String passwordInput = passwordET.getText().toString().trim();
 
         Employee employee = new Employee();
         Employee.username = usernameInput;
