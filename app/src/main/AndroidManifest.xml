@@ -23,10 +23,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activities.AddJobActivity"
+            android:name="com.vince.capstoneproject.activities.AddJobActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name="com.vince.capstoneproject.activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -36,11 +36,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.EmployeeDashboardActivity"
+            android:name="com.vince.capstoneproject.activities.EmployeeDashboardActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".activities.CreateAccountActivity"
+            android:name="com.vince.capstoneproject.activities.CreateAccountActivity"
             android:windowSoftInputMode="adjustResize" />
     </application>
 

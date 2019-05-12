@@ -10,7 +10,6 @@ import android.widget.EditText;
 
 import com.vince.capstoneproject.Employee;
 import com.vince.capstoneproject.R;
-import com.vince.capstoneproject.database.AccessDatabaseTask;
 import com.vince.capstoneproject.database.LoginTask;
 
 /**
@@ -24,7 +23,6 @@ import com.vince.capstoneproject.database.LoginTask;
 public class MainActivity extends AppCompatActivity implements View.OnFocusChangeListener {
     private EditText usernameET, passwordET;
     private LoginTask loginTask;
-    private Button adminButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
         usernameET = findViewById(R.id.usernameET);
         passwordET = findViewById(R.id.passwordET);
 
-        adminButton = findViewById(R.id.adminButton);
 
         usernameET.setOnFocusChangeListener(this);
         passwordET.setOnFocusChangeListener(this);
@@ -50,13 +47,6 @@ public class MainActivity extends AppCompatActivity implements View.OnFocusChang
             startActivity(i);
         });
 
-        adminButton.setOnClickListener( v -> {
-
-            AccessDatabaseTask insertAdmin = new AccessDatabaseTask(
-                    AccessDatabaseTask.Operation.ADMIN);
-
-            insertAdmin.execute(getApplicationContext());
-        });
     }
 
     /**

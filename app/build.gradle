@@ -1,9 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['src/main/res']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+        }
+
+        debug {
+            java.srcDirs = ['src/debug/java']
+            res.srcDirs = ['src/debug/res', 'src/main/res']
+            manifest.srcFile 'src/debug/AndroidManifest.xml'
+        }
+    }
+
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\vince\\Desktop\\Desktop Data\\capstoneprojkey (2019_03_13 12_23_38 UTC).jks')
+            storeFile file('C:\\Users\\vince\\Desktop\\capstoneprojkey.jks')
             keyAlias = 'key0'
             keyPassword 'Addison2193!'
             storePassword 'Addison2193!'
@@ -20,15 +35,21 @@ android {
         applicationId "com.vince.capstoneproject"
         minSdkVersion 26
         targetSdkVersion 28
-        versionCode 13
-        versionName "1.1.3"
+        versionCode 14
+        versionName "1.1.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release
+            manifestPlaceholders = [:]
+        }
+
+        debug {
+            applicationIdSuffix '.debug'
+            debuggable true
         }
     }
     compileOptions {
@@ -41,13 +62,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta1'
-    implementation 'com.android.support:design:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'androidx.test:runner:1.1.1'
-    androidTestImplementation 'androidx.test:rules:1.1.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'de.codecrafters.tableview:tableview:2.2.0'
     implementation 'com.android.support:design:28.0.0'
 
 }

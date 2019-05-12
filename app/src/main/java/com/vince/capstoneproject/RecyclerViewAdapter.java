@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.vince.capstoneproject.Interfaces.NotesCallback;
 import com.vince.capstoneproject.activities.AddJobActivity;
-import com.vince.capstoneproject.activities.EmployeeDashboardActivity;
 import com.vince.capstoneproject.database.AccessDatabaseTask;
 
 import java.time.Duration;
